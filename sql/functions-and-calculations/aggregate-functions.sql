@@ -37,3 +37,13 @@ SELECT department_id,
        COUNT(employee_id) as count_employee
 FROM employees
 GROUP BY 1, 2; -- GROUP BY department_id, manager_id;
+
+
+
+-- SUM() - returns the total sum of a numerical column
+
+-- MIN() - returns the smallest value within the selected column
+
+-- MAX() - returns the largest value within the selected column
+
+-- AVG() - returns the average value of a numerical column
