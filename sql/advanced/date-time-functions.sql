@@ -24,3 +24,13 @@ SELECT
     date_trunc('minute', bookingdate),
     date_trunc('second', bookingdate)
 FROM bookings;
+
+-- EXTRACT Function
+-- EXTRACT() function is a powerful tool used to retrieve specific components of a date or time value.
+SELECT EXTRACT(YEAR FROM '2024-06-01 12:30:15'::TIMESTAMP); -- 2024
+SELECT EXTRACT(DAY FROM '2024-06-01 12:30:15'::TIMESTAMP); -- 1
+
+SELECT
+    bookingdate,
+    extract(month from bookingdate)
+FROM bookings;
