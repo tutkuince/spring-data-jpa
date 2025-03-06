@@ -48,3 +48,6 @@ SELECT
     extract(DAY FROM current_date - bookingdate)
 FROM bookings;
 
+-- date_part
+SELECT date_part('month', '2022-06-01 12:30:20'::timestamp);
+SELECT extract(MONTH FROM '2022-06-01 12:30:20'::timestamp);
