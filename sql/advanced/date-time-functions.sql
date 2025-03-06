@@ -34,3 +34,17 @@ SELECT
     bookingdate,
     extract(month from bookingdate)
 FROM bookings;
+
+-- AGE() function => subtracts two timestamps, producing a symbolic result that uses years and months.
+SELECT age('2022-06-03 11:30:15'::timestamp, '2022-06-01 12:30:15'::timestamp);
+SELECT '2022-06-03 11:30:15'::timestamp - '2022-06-01 12:30:15'::timestamp;
+SELECT EXTRACT(DAY FROM '2022-06-03 11:30:15'::timestamp - '2022-06-01 12:30:15'::timestamp);
+
+
+-- Müşterinin son siparişi üzerinden kaç gün geçmiş.
+SELECT
+    bookingdate,
+    current_date,
+    extract(DAY FROM current_date - bookingdate)
+FROM bookings;
+
