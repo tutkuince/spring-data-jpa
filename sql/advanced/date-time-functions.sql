@@ -51,3 +51,23 @@ FROM bookings;
 -- date_part
 SELECT date_part('month', '2022-06-01 12:30:20'::timestamp);
 SELECT extract(MONTH FROM '2022-06-01 12:30:20'::timestamp);
+
+-- INTERVAL
+SELECT ('2022-06-01'::date - interval '1 month')::date, '2022-06-01'::date;
+
+-- 2021-06-02 => today
+
+SELECT
+    id as booking_id,
+    bookingdate,
+    contactid
+FROM bookings
+WHERE bookingdate >= '2021-06-02 00:00:00'::TIMESTAMP - INTERVAL '1 week';
+
+
+SELECT
+    to_char(bookingdate, 'YYYY-MM') as booking_month,
+    count(*)
+FROM bookings
+WHERE bookingdate >= '2021-06-02 00:00:00'::TIMESTAMP - INTERVAL '1 week'
+GROUP BY bookingdate;
