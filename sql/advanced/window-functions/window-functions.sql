@@ -19,3 +19,21 @@
 -- AVG(column_name) OVER (PARTITION BY column_name)
 
 -- With each employee information, show the average salary information of the relevant department.
+
+-- without window function
+with avg_salary as (SELECT
+    department_id,
+    ROUND(AVG(salary), 2) as d_avg_salary
+FROM employees
+GROUP BY department_id)
+
+SELECT
+    e.first_name,
+    e.last_name,
+    e.department_id,
+    d.department_name,
+    e.salary,
+    d_avg_salary
+FROM employees as e
+LEFT JOIN avg_salary as a_s on e.department_id = a_s.department_id
+LEFT JOIN departments as d on d.department_id = e.department_id;
