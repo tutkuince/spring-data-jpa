@@ -9,3 +9,10 @@
 -- )
 
 -- List the orders of each customer in date order.
+
+SELECT
+    contactid,
+    bookingdate,
+    to_char(bookingdate, 'YYYY-MM-DD') as booking_day,
+    ROW_NUMBER() OVER (PARTITION BY contactid ORDER BY to_char(bookingdate, 'YYYY-MM-DD')) as row_num
+FROM bookings;
