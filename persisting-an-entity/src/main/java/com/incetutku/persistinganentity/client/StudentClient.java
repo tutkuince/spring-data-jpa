@@ -17,7 +17,14 @@ public class StudentClient implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        // Persisting a student
         Student student = new Student("Tutku Ince", "2025AN50123");
-        studentRepository.save(student);    // update=> merge() | save=> persist()
+        Student savedStudent = studentRepository.save(student);    // update=> merge() | save=> persist()
+
+        // transient state -> persistent state(save) -> detached state (after save)
+
+        // Updating a student
+        savedStudent.setName("Utku Ince");
+        Student updatedStudent = studentRepository.save(savedStudent);
     }
 }
