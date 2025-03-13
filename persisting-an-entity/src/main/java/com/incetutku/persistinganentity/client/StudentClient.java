@@ -18,6 +18,6 @@ public class StudentClient implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Student student = new Student("Tutku Ince", "2025AN50123");
-        studentRepository.save(student);
+        studentRepository.save(student);    // update=> merge() | save=> persist()
     }
 }
