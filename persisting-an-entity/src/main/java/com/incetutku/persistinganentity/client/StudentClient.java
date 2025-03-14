@@ -6,6 +6,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class StudentClient implements ApplicationRunner {
 
@@ -31,5 +33,9 @@ public class StudentClient implements ApplicationRunner {
         // Updating a student
         savedStudent.setName("Utku Ince");
         Student updatedStudent = studentRepository.save(savedStudent);  // update=> merge()
+
+        Optional<Student> optionalStudent = studentRepository.findById(1L);
+        Student selectedStudent = optionalStudent.orElseThrow(RuntimeException::new);
+        System.out.println(selectedStudent);
     }
 }
