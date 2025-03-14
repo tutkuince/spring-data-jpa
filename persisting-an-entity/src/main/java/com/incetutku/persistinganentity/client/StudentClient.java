@@ -37,5 +37,12 @@ public class StudentClient implements ApplicationRunner {
         Optional<Student> optionalStudent = studentRepository.findById(1L);
         Student selectedStudent = optionalStudent.orElseThrow(RuntimeException::new);
         System.out.println(selectedStudent);
+
+        // studentRepository.delete(savedStudent); // entityManager.find(): persistence state -> entityManager.remove() -> removed state
+
+        boolean isFound = studentRepository.existsById(1L); // SELECT COUNT(*) FROM Student WHERE id = ?
+        if (isFound) {
+            studentRepository.deleteById(1L);
+        }
     }
 }
