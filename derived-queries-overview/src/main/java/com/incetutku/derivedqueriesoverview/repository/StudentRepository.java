@@ -19,4 +19,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query(value = "SELECT * FROM Student WHERE Name LIKE %?", nativeQuery = true)
     List<Student> findByNameEndingWith(String name);
+
+    // Order Of Execution: @Query (JPQL) -> @NamedQuery -> Derived Query
 }
