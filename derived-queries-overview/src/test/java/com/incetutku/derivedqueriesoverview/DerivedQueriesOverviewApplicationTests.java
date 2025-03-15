@@ -53,4 +53,11 @@ class DerivedQueriesOverviewApplicationTests {
         assertEquals(3, students.size());
         System.out.println(students);
     }
+
+    @Test
+    void testFindFirst2ByEnrollmentIdStartingWithAndNameLike() {
+        List<Student> students = studentRepository.findFirst2ByEnrollmentIdStartingWithAndNameLike("2022", "A%");
+        assertEquals(2, students.size());
+        System.out.println(students);
+    }
 }

@@ -10,4 +10,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findByEnrollmentId(String enrollmentId);
 
     List<Student> findByEnrollmentIdStartingWithAndNameLike(String enrollmentId, String name);
+
+    List<Student> findFirst2ByEnrollmentIdStartingWithAndNameLike(String enrollmentId, String name);    // LIMIT with First 2
 }
