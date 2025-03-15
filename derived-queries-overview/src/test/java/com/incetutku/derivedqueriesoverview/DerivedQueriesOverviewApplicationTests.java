@@ -60,4 +60,18 @@ class DerivedQueriesOverviewApplicationTests {
         assertEquals(2, students.size());
         System.out.println(students);
     }
+
+    @Test
+    void testFindByName() {
+        List<Student> students = studentRepository.findByName("Alissa Simmons");
+        assertEquals("Alissa Simmons", students.get(0).getName());
+        System.out.println(students);
+    }
+
+    @Test
+    void testFindByNameEndingWith() {
+        List<Student> students = studentRepository.findByNameEndingWith("Simmons");
+        assertEquals("Alissa Simmons", students.get(0).getName());
+        System.out.println(students);
+    }
 }
