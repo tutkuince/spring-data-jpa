@@ -6,7 +6,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -44,4 +47,10 @@ class DerivedQueriesOverviewApplicationTests {
         System.out.println(student);
     }
 
+    @Test
+    void testFindByEnrollmentIdStartingWithAndNameLike() {
+        List<Student> students = studentRepository.findByEnrollmentIdStartingWithAndNameLike("2022", "A%");
+        assertEquals(3, students.size());
+        System.out.println(students);
+    }
 }
