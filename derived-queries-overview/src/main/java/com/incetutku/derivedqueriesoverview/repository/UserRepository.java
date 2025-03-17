@@ -79,8 +79,28 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByIsActiveFalse();
 
+    // Question - 2
     // find first two "active users whose "username" ends with alphabet "e"
     List<User> findFirst2ByIsActiveAndUsernameEndingWith(Boolean isActive, String ending);
 
     List<User> findFirst2ByIsActiveTrueAndUsernameEndingWith(String ending);
+
+    // Task - 1: Find all users with their level ordered in descending order
+    List<User> findByOrderByLevelDesc();
+
+    // Task - 2: Find just 2 users with their level ordered in descending order
+    List<User> findFirst2ByOrderByLevelDesc();
+
+    List<User> findTop2ByOrderByLevelDesc();
+
+    // Task - 3: Find just first user from users ordered by their level in descending order
+    User findFirstByOrderByLevelDesc();
+    User findTOpByOrderByLevelDesc();
+
+    // Task - 4: Find all users who are either inactive or 1st level
+    List<User> findByIsActiveTrueOrLevel(Integer level);
+    List<User> findByIsActiveOrLevel(Boolean isActive, Integer level);
+
+    // Task - 5: Find all users whose email contains the string "else" in it
+    List<User> findByEmailContaining(String containing);
 }
