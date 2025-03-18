@@ -3,6 +3,7 @@ package com.incetutku.derivedqueriesoverview.repository;
 import com.incetutku.derivedqueriesoverview.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -98,10 +99,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Task - 3: Find just first user from users ordered by their level in descending order
     User findFirstByOrderByLevelDesc();
+
     User findTOpByOrderByLevelDesc();
 
     // Task - 4: Find all users who are either inactive or 1st level
     List<User> findByIsActiveTrueOrLevel(Integer level);
+
     List<User> findByIsActiveOrLevel(Boolean isActive, Integer level);
 
     // Task - 5: Find all users whose email contains the string "else" in it
@@ -112,4 +115,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByLevelOrderByRegistrationDateDescUsernameAsc(Integer level);
 
     List<User> findByLevel(Integer level, Sort sort);
+
+    // Question 1: Considering the information given below,
+    // write a "Pageable" query-method, to find all users of a given "level", sorted by their "registrationDate"(in ascending order)
+    Page<User> findByLevel(Integer level, Pageable pageable);   // userRepository.findByLevel(2, PageRequest.of(0, 3, Sort.by("registrationDate").ascending());
+    // Slice<User> findByLevel(Integer level, Pageable pageable); // better performance with same usage of Page
+
+    // Question 2: Considering the information given below,
+    // how would you call the findByLevel method to find all the level = 2 users, using no PageRequest
+    // Page<User> page = userRepository.findByLevel(2, Pageable.unpaged());
+
+    // Question 3: Considering the information given below,
+    // how would you call the findByIsActive method to find all the isActive=false users, using no sorting expression.
+    // List<User> page = userRepository.findByIsActive(false, Sort.unsorted());
 }
