@@ -66,18 +66,18 @@ class UserRepositoryTest {
 
     @Test
     void testFindAllPage1Of3UsersWithSortByLevel() {
-        Page<User> page1Of3User = userRepository.findAll(PageRequest.of(0, 3, Sort.by("level")));
+        Page<User> page1Of3User = userRepository.findAll(PageRequest.of(0, 3, Sort.by("level").and(Sort.by("id"))));   // order not guaranteed
         List<User> users = page1Of3User.getContent();
         assertEquals(3, users.size());
-        assertEquals("ciko", users.get(2).getUsername());
+        assertEquals("serto", users.get(2).getUsername());
     }
 
     @Test
     void testFindAllPage2Of3UsersWithSortByLevel() {
-        Page<User> page2Of3User = userRepository.findAll(PageRequest.of(1, 3));
+        Page<User> page2Of3User = userRepository.findAll(PageRequest.of(1, 3, Sort.by("level").and(Sort.by("id"))));
         List<User> users = page2Of3User.getContent();
         assertEquals(3, users.size());
-        assertEquals("emino", users.get(2).getUsername());
+        assertEquals("ciko", users.get(2).getUsername());
     }
 
     @Test
