@@ -3,6 +3,7 @@ package com.incetutku.derivedqueriesoverview.repository;
 import com.incetutku.derivedqueriesoverview.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -107,4 +108,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByEmailContaining(String containing);
 
     Page<User> findAll(Pageable pageable); // userRepository.findAll(PageRequest.of(0,3)); // first parameter is page number, second one is size of the data
+
+    List<User> findByLevelOrderByRegistrationDateDescUsernameAsc(Integer level);
+
+    List<User> findByLevel(Integer level, Sort sort);
 }
