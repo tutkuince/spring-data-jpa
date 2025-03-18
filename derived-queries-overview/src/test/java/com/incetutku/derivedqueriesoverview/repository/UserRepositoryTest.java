@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -62,4 +63,22 @@ class UserRepositoryTest {
         assertEquals(3, users.size());
         assertEquals("serto", users.get(2).getUsername());
     }
+
+    @Test
+    void testFindAllPage1Of3UsersWithSortByLevel() {
+        Page<User> page1Of3User = userRepository.findAll(PageRequest.of(0, 3, Sort.by("level")));
+        List<User> users = page1Of3User.getContent();
+        assertEquals(3, users.size());
+        assertEquals("ciko", users.get(2).getUsername());
+    }
+
+    @Test
+    void testFindAllPage2Of3UsersWithSortByLevel() {
+        Page<User> page2Of3User = userRepository.findAll(PageRequest.of(1, 3));
+        List<User> users = page2Of3User.getContent();
+        assertEquals(3, users.size());
+        assertEquals("emino", users.get(2).getUsername());
+    }
+
+
 }
