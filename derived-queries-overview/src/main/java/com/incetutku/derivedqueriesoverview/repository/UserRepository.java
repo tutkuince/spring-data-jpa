@@ -1,6 +1,8 @@
 package com.incetutku.derivedqueriesoverview.repository;
 
 import com.incetutku.derivedqueriesoverview.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -103,4 +105,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // Task - 5: Find all users whose email contains the string "else" in it
     List<User> findByEmailContaining(String containing);
+
+    Page<User> findAll(Pageable pageable); // userRepository.findAll(PageRequest.of(0,3)); // first parameter is page number, second one is size of the data
 }
