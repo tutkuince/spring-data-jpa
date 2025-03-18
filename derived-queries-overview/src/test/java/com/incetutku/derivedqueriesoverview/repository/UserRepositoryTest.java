@@ -80,5 +80,12 @@ class UserRepositoryTest {
         assertEquals("emino", users.get(2).getUsername());
     }
 
-
+    @Test
+    void testFindAllPage2Of3UsersWithSortByLevelAndUsername() {
+        Sort sortByLevelAndUsername = Sort.by("level").and(Sort.by("username"));
+        Page<User> page2Of3User = userRepository.findAll(PageRequest.of(1, 3, sortByLevelAndUsername));
+        List<User> users = page2Of3User.getContent();
+        assertEquals(3, users.size());
+        assertEquals("ciko", users.get(2).getUsername());
+    }
 }
