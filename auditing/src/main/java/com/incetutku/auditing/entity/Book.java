@@ -1,7 +1,9 @@
 package com.incetutku.auditing.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -23,6 +25,12 @@ public class Book {
 
     @LastModifiedDate   // Step 1
     private LocalDateTime lastModifiedDate;
+
+    @CreatedBy
+    private String createdBy;
+
+    @LastModifiedBy
+    private String lastModifiedBy;
 
     public Book() {
     }
@@ -72,6 +80,22 @@ public class Book {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -80,6 +104,8 @@ public class Book {
                 ", isbn='" + isbn + '\'' +
                 ", createdDate=" + createdDate +
                 ", lastModifiedDate=" + lastModifiedDate +
+                ", createdBy='" + createdBy + '\'' +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 '}';
     }
 }
