@@ -1,13 +1,59 @@
 package com.incetutku.querybyexample;
 
+import com.incetutku.querybyexample.entity.User;
+import com.incetutku.querybyexample.repository.UserRepository;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 
-@SpringBootTest
+import java.util.List;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class QueryByExampleApplicationTests {
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @BeforeAll
+    void beforeAll() {
+        User u1 = new User("gillamy01", "Amy", "Gill", "amy@mail.com", 1);
+        User u2 = new User("smithjohn02", "John", "Smith", "john@mail.com", 2);
+        User u3 = new User("lawsonmike03", "Mike", "Lawson", "mike@mail.com", 3);
+        User u4 = new User("lambian03", "Ian", "Lamb", "ian@mail.com", 3);
+        User u5 = new User("bailektora02", "Tora", "Bailek", "tora@mail.com", 2);
+        User u6 = new User("smithsadie01", "Sadie", "Smith", "sadie@mail.com", 1);
+        User u7 = new User("ambrizsharon01", "Sharon", "Ambriz", "sharon@mail.com", 1);
+        User u8 = new User("singhrahul02", "Rahul", "Singh", "rahul@mail.com", 2);
+        User u9 = new User("smithjoe01", "Joe", "Smith", "joe@mail.com", 2);
+        User u10 = new User("johnsnonleo03", "Leo", "Johnson", "leo@mail.com", 3);
+        User u11 = new User("leebrett04", "Brett", "Lee", "brett@mail.com", 4);
+
+        userRepository.save(u1);
+        userRepository.save(u2);
+        userRepository.save(u3);
+        userRepository.save(u4);
+        userRepository.save(u5);
+        userRepository.save(u6);
+        userRepository.save(u7);
+        userRepository.save(u8);
+        userRepository.save(u9);
+        userRepository.save(u10);
+        userRepository.save(u11);
+    }
+
     @Test
-    void contextLoads() {
+    void testQueryByExample1() {
+        User user = new User();
+        user.setLastname("Smith");
+        user.setLevel(2);
+
+        Example<User> example = Example.of(user);
+        List<User> matchingUsers = userRepository.findAll(example);
+        System.out.println(matchingUsers);
     }
 
 }
