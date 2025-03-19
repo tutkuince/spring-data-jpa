@@ -2,6 +2,7 @@ package com.incetutku.querybyexample;
 
 import com.incetutku.querybyexample.entity.User;
 import com.incetutku.querybyexample.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -10,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -54,6 +57,21 @@ class QueryByExampleApplicationTests {
         Example<User> example = Example.of(user);
         List<User> matchingUsers = userRepository.findAll(example);
         System.out.println(matchingUsers);
+    }
+
+    @Test
+    void testQueryByExample2() {
+        User user = new User();
+        user.setLastname("Smith");
+        // user.setLevel(2); -> by default 0, because it is primitive type
+        // default data attributes using primitive types are always included in probe entity instance.
+        // Even if you do not provide any value for them, they'll be included with their default values.
+        // Only the non-primitive data attributes are ignored if you do not provide any value for them.
+
+        Example<User> example = Example.of(user);
+        List<User> matchingUsers = userRepository.findAll(example);
+        System.out.println(matchingUsers.size()); // so size is 0
+        assertEquals(0, matchingUsers.size());
     }
 
 }
