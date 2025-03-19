@@ -106,4 +106,22 @@ class QueryByExampleApplicationTests {
         assertEquals(2, matchingUsers.size());
     }
 
+    @Test
+    void testQueryByExample5() {
+        User user = new User();
+        user.setFirstname("s");
+        user.setEmail("@mail.com");
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("level")
+                .withMatcher("firstname", ExampleMatcher.GenericPropertyMatcher::startsWith)
+                .withMatcher("email", ExampleMatcher.GenericPropertyMatcher::endsWith)
+                .withIgnoreCase();
+
+        Example<User> example = Example.of(user, matcher);
+        List<User> matchingUsers = userRepository.findAll(example);
+        System.out.println(matchingUsers.size());   // 2
+        assertEquals(2, matchingUsers.size());
+    }
+
 }
