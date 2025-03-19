@@ -9,6 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 
 import java.util.List;
 
@@ -72,6 +73,21 @@ class QueryByExampleApplicationTests {
         List<User> matchingUsers = userRepository.findAll(example);
         System.out.println(matchingUsers.size()); // so size is 0
         assertEquals(0, matchingUsers.size());
+    }
+
+    @Test
+    void testQueryByExample3() {
+        User user = new User();
+        user.setLastname("Smith");
+        // user.setLevel(2); -> by default 0, because it is primitive type
+
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnorePaths("level");
+        // ExampleMatcher -> carries details on how to match particular properties
+
+        Example<User> example = Example.of(user, matcher);
+        List<User> matchingUsers = userRepository.findAll(example);
+        System.out.println(matchingUsers.size());   // 3
+        assertEquals(3, matchingUsers.size());
     }
 
 }
