@@ -90,4 +90,20 @@ class QueryByExampleApplicationTests {
         assertEquals(3, matchingUsers.size());
     }
 
+    @Test
+    void testQueryByExample4() {
+        User user = new User();
+        user.setFirstname("s");
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("level")
+                .withStringMatcher(ExampleMatcher.StringMatcher.STARTING)
+                .withIgnoreCase();
+
+        Example<User> example = Example.of(user, matcher);
+        List<User> matchingUsers = userRepository.findAll(example);
+        System.out.println(matchingUsers.size());   // 2
+        assertEquals(2, matchingUsers.size());
+    }
+
 }
