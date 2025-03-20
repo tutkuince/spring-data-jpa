@@ -14,6 +14,9 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
+    // @Transactional Overview
+    // A transaction is a group of operations that are run as a single unit of work
+
     @Transactional
     public void bookTicket(Ticket ticket) {
         // begin transaction
