@@ -4,11 +4,19 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    # turn of auto_commit mode
+    hikari:
+      auto-commit: false
 
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        # turn of auto_commit mode
+        connection:
+          provider_disables_autocommit: true
+
 
     hibernate:
       ddl-auto: create-drop
@@ -31,6 +39,8 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+    # turn on Hikari connection pool logging (logs every 30 seconds)
+    com.zaxxer.hikari: TRACE
 
   pattern:
     console: "%msg%n"
