@@ -23,4 +23,13 @@ public class TicketService {
         ticketRepository.save(ticket);
         throw new RuntimeException("Payment failed");
     }   // commit
+
+    @Transactional
+    public void doSomeTimeConsumingTask() throws InterruptedException {
+        Thread.sleep(40000);
+
+        Ticket ticket = ticketRepository.findById(1L).get();
+
+        Thread.sleep(40000);
+    }
 }

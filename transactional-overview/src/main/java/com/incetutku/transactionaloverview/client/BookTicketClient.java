@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-@Component
+// @Component
 public class BookTicketClient implements ApplicationRunner {
 
     private final TicketService ticketService;
