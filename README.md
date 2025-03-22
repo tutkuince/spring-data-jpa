@@ -5,6 +5,7 @@ In Hibernate, the database connection acquisition, as well as the connection rel
 - JTA: For XA transactions, that span over multiple DataSources, the Connection is acquired upon executing the first Statement and is released after each Statement execution.
 The aggressive connection release mechanism can be skipped if the underlying application server allows us to do so.
 <hr/>
+
 - Our goal is to make the resource-local transaction behave like JTA and delay the connection acquisition until Hibernate needs to execute the first JDBC Statement of the currently running unit-of-work.
 - The reason why resource-local transaction requires a database connection from the very beginning.
 - Hibernate needs to check the underlying JDBC Connection auto-commit status, and disable it if the Connection is set to auto-commit.
