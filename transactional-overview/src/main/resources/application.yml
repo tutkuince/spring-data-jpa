@@ -20,6 +20,7 @@ spring:
 
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
 
   h2:
     console:
@@ -31,14 +32,9 @@ spring:
 logging:
   level:
     root: off
-    org:
-      springframework: error
-      hibernate:
-        sql: debug
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+    org.springframework: error
+    org.hibernate.sql: debug
+#    org.hibernate.type.descriptor.sql.DdlType: TRACE
     # turn on Hikari connection pool logging (logs every 30 seconds)
     com.zaxxer.hikari: TRACE
 
