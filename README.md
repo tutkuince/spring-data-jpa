@@ -54,6 +54,7 @@ Uses the existing transaction if available, otherwise creates a new one.
 - If the calling method already has a transaction, the same transaction is used.
 - If there's no transaction, a new one is created.
 - Use case: When you want all operations to be in a single transaction.
+- ***If RuntimeException occurs in either of the two methods, the whole transaction will rollback***
 2. REQUIRES_NEW
 Always creates a new transaction, suspending the existing one (if any).
 - If there's an active transaction, it is paused, and a new transaction is created.
