@@ -25,13 +25,13 @@ public class CollegeManagementService {
 
     @Transactional
     public void fetchingReadWriteGuide() {
-        Guide guide = guideRepository.findById(1L).get();
+        Guide guide = guideRepository.findById(1L).get(); // Snapshot copy
         guide.setSalary(2500);
-    }  
+    }   // Automatic Dirty Checking: After this method Guide Salary will be 2500.
 
     @Transactional(readOnly = true)
     public void fetchingReadOnlyGuide() {
         Guide guide = guideRepository.findById(1L).get();
         guide.setSalary(2500);
-    }
+    }   // No Automatic Dirty Checking and No Flushing
 }
