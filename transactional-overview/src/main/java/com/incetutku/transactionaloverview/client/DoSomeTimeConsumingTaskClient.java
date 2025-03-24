@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-@Component
+// @Component
 public class DoSomeTimeConsumingTaskClient implements ApplicationRunner {
 
     private final TicketService ticketService;

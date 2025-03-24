@@ -27,7 +27,7 @@ public class CollegeManagementService {
     public void fetchingReadWriteGuide() {
         Guide guide = guideRepository.findById(1L).get();
         guide.setSalary(2500);
-    }
+    }  
 
     @Transactional(readOnly = true)
     public void fetchingReadOnlyGuide() {
