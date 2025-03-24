@@ -44,3 +44,56 @@ A read-write transaction allows both reading and modifying database records. Thi
 <b>Why use it?</b>
 - Needed for any database modification.
 - Ensures changes are persisted safely with rollback support.
+
+
+#### Transaction Propagation in Hibernate
+In Hibernate (when used with Spring), transaction propagation defines how transactions behave when a method is called inside another transactional method. Spring provides several propagation types to control how transactions are managed.
+#### Types of Transaction Propagation in Hibernate
+1. REQUIRED (Default)
+Uses the existing transaction if available, otherwise creates a new one.
+- If the calling method already has a transaction, the same transaction is used.
+- If there's no transaction, a new one is created.
+- Use case: When you want all operations to be in a single transaction.
+2. REQUIRES_NEW
+Always creates a new transaction, suspending the existing one (if any).
+- If there's an active transaction, it is paused, and a new transaction is created.
+- The old transaction resumes after the new one completes.
+- Use case: When you need a separate transaction (e.g., logging, audit, notifications).
+- Real-life Example: If an order fails, logging the failure should not roll back if the order transaction fails.
+3. SUPPORTS
+Uses a transaction if available, otherwise runs without one.
+- If a transaction exists, it participates in it.
+- If no transaction exists, it runs non-transactionally.
+- Use case: When transactions are optional (e.g., read operations that may or may not require a transaction).
+4. MANDATORY
+Requires an existing transaction, otherwise throws an exception.
+- If there's an active transaction, it joins it.
+- If no transaction exists, it throws TransactionRequiredException.
+- Use case: When a method must be called within a transaction, such as database updates.
+5. NOT_SUPPORTED
+Runs without a transaction, suspending any existing transaction.
+- If a transaction exists, it is paused during execution.
+- The method executes outside a transactional context.
+- Use case: When a method should not be inside a transaction (e.g., long-running batch jobs, reporting).
+- Real-life Example: Running a background job that should not be affected by transaction rollbacks.
+6. NEVER
+Does not allow a transaction; throws an exception if one exists.
+- If no transaction exists, the method runs normally.
+- If a transaction does exist, an exception is thrown.
+- Use case: When a method must not be executed within a transaction.
+- Warning: If called within a transaction, it will fail.
+7. NEVER
+Creates a nested transaction within an existing one.
+- If a transaction exists, it creates a savepoint inside it.
+- If the nested transaction fails, only changes inside it are rolled back (not the parent transaction).
+- If no transaction exists, it behaves like REQUIRED.
+- Use case: When part of a transaction can be rolled back separately.
+- Real-life Example: Updating an order, but if order history logging fails, only the history rollback happens, not the entire order update.
+##### When to Use Which?
+- REQUIRED → Most common, use for regular transactional methods.
+- REQUIRES_NEW → When you need a separate transaction (e.g., logging, sending emails).
+- SUPPORTS → Use for optional transactions (e.g., read operations).
+- MANDATORY → Use when the method must run inside a transaction.
+- NOT_SUPPORTED → For operations that should never run inside a transaction (e.g., background jobs).
+- NEVER → When a transaction is strictly forbidden.
+- NESTED → When you need sub-transactions that can roll back independently.
