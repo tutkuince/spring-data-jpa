@@ -34,4 +34,14 @@ public class CollegeManagementService {
         Guide guide = guideRepository.findById(1L).get();
         guide.setSalary(2500);
     }   // No Automatic Dirty Checking and No Flushing
+
+    @Transactional(readOnly = true)
+    public Guide findGuideById(Long id) {
+        return guideRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void updateGuide(Guide guide) {
+        guideRepository.save(guide);
+    }
 }
