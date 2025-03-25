@@ -2,7 +2,9 @@ package com.incetutku.transactionaloverview.client;
 
 import com.incetutku.transactionaloverview.entity.Guide;
 import com.incetutku.transactionaloverview.service.CollegeManagementService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class User2Client implements Runnable {
 
     private final CollegeManagementService collegeManagementService;
