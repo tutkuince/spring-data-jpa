@@ -5,7 +5,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class TransactionPropagationClient implements ApplicationRunner {
 
     private final ItemService itemService;
