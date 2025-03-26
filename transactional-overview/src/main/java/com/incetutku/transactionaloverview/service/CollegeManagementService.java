@@ -5,6 +5,8 @@ import com.incetutku.transactionaloverview.repository.GuideRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CollegeManagementService {
 
@@ -43,5 +45,21 @@ public class CollegeManagementService {
     @Transactional
     public void updateGuide(Guide guide) {
         guideRepository.save(guide);
+    }
+
+    @Transactional
+    public void prepareNameAndSalaryReportOfAllGuides() {
+        List<Object[]> resultList = guideRepository.getNameAndSalaryOfAll();
+        resultList.forEach(result -> {
+            System.out.println("Name: " + result[0] + "\t\tSalary: " + result[1]);
+        });
+
+        System.out.println(guideRepository.calculateSumOfAllSalaries());
+    }
+
+    @Transactional
+    public void raiseSalaryOfGuide(Long id, Integer newSalary) {
+        Guide guide = guideRepository.findById(id).get();
+        guide.setSalary(newSalary);
     }
 }
