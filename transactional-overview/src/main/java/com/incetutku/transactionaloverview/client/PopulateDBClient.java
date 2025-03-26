@@ -21,7 +21,7 @@ public class PopulateDBClient implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         // pre-populating db with 3 guides
         Guide g1 = new Guide("2000MO10789", "Mike Lawson", 1000);
-        Guide g2 = new Guide("2000IM10901", "Ian Lamb", 2500);
+        Guide g2 = new Guide("2000IM10901", "Ian Lamb", 4000);
         Guide g3 = new Guide("2000DO10777", "David Crow", 3000);
 
         guideRepository.save(g1);
