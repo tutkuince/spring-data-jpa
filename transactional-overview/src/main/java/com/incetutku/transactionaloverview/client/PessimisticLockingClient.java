@@ -8,23 +8,23 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-//@Component
-//@Order(2)
-public class OptimisticLockingClient implements ApplicationRunner {
+@Component
+@Order(2)
+public class PessimisticLockingClient implements ApplicationRunner {
 
-    private final User1Client user1Client;
-    private final User2Client user2Client;
+    private final UserXClient userXClient;
+    private final UserYClient userYClient;
 
-    public OptimisticLockingClient(User1Client user1Client, User2Client user2Client) {
-        this.user1Client = user1Client;
-        this.user2Client = user2Client;
+    public PessimisticLockingClient(UserXClient userXClient, UserYClient userYClient) {
+        this.userXClient = userXClient;
+        this.userYClient = userYClient;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         ExecutorService service = Executors.newFixedThreadPool(2);
-        service.execute(user1Client);
-        service.execute(user2Client);
+        service.execute(userYClient);
+        service.execute(userXClient);
 
         service.shutdown();
     }
