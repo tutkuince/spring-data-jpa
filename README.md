@@ -98,3 +98,118 @@ Creates a nested transaction within an existing one.
 - NOT_SUPPORTED → For operations that should never run inside a transaction (e.g., background jobs).
 - NEVER → When a transaction is strictly forbidden.
 - NESTED → When you need sub-transactions that can roll back independently.
+
+
+#### Optimistic and Pessimistic Locking in Hibernate
+In Hibernate, locking mechanisms help prevent data inconsistencies when multiple transactions access the same entity simultaneously. The two main types of locking are pessimistic locking and optimistic locking.
+
+#### 1. Optimistic Locking
+
+Assumes conflicts are rare and allows multiple transactions to work on the same data without immediate locks.
+- Instead of locking a record, Hibernate detects conflicts using versioning.
+- If another transaction has modified the data in the meantime, an error is thrown when committing.
+
+How It Works:
+- The entity has a @Version column (e.g., an integer or timestamp).
+- When a transaction reads the entity, it also reads the version.
+- Before updating, Hibernate checks if the version is still the same.
+- If the version has changed (another transaction updated the record), it throws an OptimisticLockException.
+
+Advantages:
+- ✅ Better performance (no locks needed).
+- ✅ Works well for applications with more reads than writes.
+- ✅ Prevents dirty writes (when two transactions overwrite each other's changes).
+
+Disadvantages:
+- ❌ Conflict detection is late (only at commit time).
+- ❌ If conflicts are frequent, it may lead to many transaction failures.
+
+#### 2. Pessimistic Locking
+
+Prevents conflicts by locking the data as soon as it is read.
+- The database blocks other transactions from modifying or even reading the locked data until the first transaction is completed.
+- Uses SQL SELECT ... FOR UPDATE to lock the row.
+
+How It Works:
+- A transaction reads an entity and locks it.
+- Other transactions must wait until the lock is released before they can modify or read the data.
+- The lock is released when the transaction completes (commit/rollback).
+
+Advantages:
+- ✅ Ensures immediate consistency (no lost updates).
+- ✅ Suitable for high-contention scenarios (frequent updates).
+
+Disadvantages:
+- ❌ Performance overhead (locks reduce concurrency).
+- ❌ Deadlocks possible if not used carefully.
+
+#### Isolation Level Rules
+In Hibernate, isolation levels define how transactions interact with each other, preventing issues like dirty reads, non-repeatable reads, and phantom reads. These isolation levels are based on database transaction isolation levels, and Hibernate uses them through JDBC.
+
+- Dirty Read: A transaction reads uncommitted changes of another transaction.
+- Non-Repeatable Read: A transaction reads the same row twice, but the value changes between reads.
+- Phantom Read: A transaction executes the same query twice and gets different sets of rows (due to inserts or deletes by other transactions).
+
+#### Types of Isolation Levels
+##### 1) READ UNCOMMITTED (Level 1)
+Lowest isolation, highest performance, but risky.
+
+- Transactions can see uncommitted changes from other transactions.
+- Can lead to dirty reads, non-repeatable reads, and phantom reads.
+
+Example:
+1) Transaction 1 updates a product price but does not commit.
+2) Transaction 2 reads the new price (even though it's uncommitted).
+3) If Transaction 1 rolls back, Transaction 2 has read incorrect data.
+
+Use Case: Not recommended unless you need maximum performance (e.g., logs, caching).
+
+##### 2) READ COMMITTED (Level 2) - Default in Many Databases
+Prevents dirty reads, but non-repeatable reads and phantom reads are possible.
+
+- Transactions can only read committed data.
+- If another transaction commits changes, subsequent reads will see the updated data.
+
+Example:
+1) Transaction 1 reads a product price.
+2) Transaction 2 updates and commits a new price.
+3) If Transaction 1 reads again, it sees the new value (non-repeatable read).
+
+Use Case: Most common, suitable for general applications.
+
+##### 3) REPEATABLE READ (Level 4)
+Prevents dirty reads & non-repeatable reads, but allows phantom reads.
+
+- Ensures consistent reads of a row within a transaction.
+- Other transactions cannot update the row until the transaction completes.
+
+Example: 
+1) Transaction 1 reads a product price multiple times.
+2) Transaction 2 tries to update the price but has to wait until Transaction 1 commits.
+
+Use Case: Used in applications where consistent reads of a record are needed (e.g., banking).
+
+##### 4) SERIALIZABLE (Level 8) - Highest Isolation
+Prevents all concurrency issues but has the worst performance.
+
+- Transactions execute sequentially (like a queue).
+- Other transactions must wait before reading/writing to the same data.
+
+Example: 
+
+1) Transaction 1 reads a set of products.
+2) While Transaction 1 is active, no other transaction can insert, update, or delete products.
+
+Use Case: Used for highly sensitive data (e.g., financial systems, inventory).
+
+#### Choosing the Right Isolation Level
+Isolation Level	Use Case
+
+- READ UNCOMMITTED	Logging, caching, fast but risky transactions
+- READ COMMITTED (default)	General applications, avoids dirty reads
+- REPEATABLE READ	Banking, e-commerce (to avoid double charges)
+- SERIALIZABLE	High-security transactions, financial systems
+
+- 🔹 Hibernate itself does not define isolation levels but relies on JDBC and database settings.
+- 🔹 Choosing the right isolation level is a balance between consistency and performance.
+- 🔹 READ COMMITTED is the most commonly used level, while SERIALIZABLE is the safest but slowest.
