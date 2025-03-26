@@ -14,6 +14,6 @@ public class UserYClient implements Runnable {
 
     @Override
     public void run() {
-        collegeManagementService.raiseSalaryOfGuide(1L, 4000);
+        collegeManagementService.raiseSalaryOfGuide(3L, 4000);
     }
 }
