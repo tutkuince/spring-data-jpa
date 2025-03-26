@@ -98,3 +98,47 @@ Creates a nested transaction within an existing one.
 - NOT_SUPPORTED → For operations that should never run inside a transaction (e.g., background jobs).
 - NEVER → When a transaction is strictly forbidden.
 - NESTED → When you need sub-transactions that can roll back independently.
+
+
+#### Optimistic and Pessimistic Locking in Hibernate
+In Hibernate, locking mechanisms help prevent data inconsistencies when multiple transactions access the same entity simultaneously. The two main types of locking are pessimistic locking and optimistic locking.
+
+#### 1. Optimistic Locking
+
+Assumes conflicts are rare and allows multiple transactions to work on the same data without immediate locks.
+- Instead of locking a record, Hibernate detects conflicts using versioning.
+- If another transaction has modified the data in the meantime, an error is thrown when committing.
+
+How It Works:
+- The entity has a @Version column (e.g., an integer or timestamp).
+- When a transaction reads the entity, it also reads the version.
+- Before updating, Hibernate checks if the version is still the same.
+- If the version has changed (another transaction updated the record), it throws an OptimisticLockException.
+
+Advantages:
+- ✅ Better performance (no locks needed).
+- ✅ Works well for applications with more reads than writes.
+- ✅ Prevents dirty writes (when two transactions overwrite each other's changes).
+
+Disadvantages:
+- ❌ Conflict detection is late (only at commit time).
+- ❌ If conflicts are frequent, it may lead to many transaction failures.
+
+#### 2. Pessimistic Locking
+
+Prevents conflicts by locking the data as soon as it is read.
+- The database blocks other transactions from modifying or even reading the locked data until the first transaction is completed.
+- Uses SQL SELECT ... FOR UPDATE to lock the row.
+
+How It Works:
+- A transaction reads an entity and locks it.
+- Other transactions must wait until the lock is released before they can modify or read the data.
+- The lock is released when the transaction completes (commit/rollback).
+
+Advantages:
+- ✅ Ensures immediate consistency (no lost updates).
+- ✅ Suitable for high-contention scenarios (frequent updates).
+
+Disadvantages:
+- ❌ Performance overhead (locks reduce concurrency).
+- ❌ Deadlocks possible if not used carefully.
