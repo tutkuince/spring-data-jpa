@@ -210,6 +210,6 @@ Isolation Level	Use Case
 - REPEATABLE READ	Banking, e-commerce (to avoid double charges)
 - SERIALIZABLE	High-security transactions, financial systems
 
-- 🔹 Hibernate itself does not define isolation levels but relies on JDBC and database settings.
-- 🔹 Choosing the right isolation level is a balance between consistency and performance.
-- 🔹 READ COMMITTED is the most commonly used level, while SERIALIZABLE is the safest but slowest.
+🔹 Hibernate itself does not define isolation levels but relies on JDBC and database settings.
+🔹 Choosing the right isolation level is a balance between consistency and performance.
+🔹 READ COMMITTED is the most commonly used level, while SERIALIZABLE is the safest but slowest.
