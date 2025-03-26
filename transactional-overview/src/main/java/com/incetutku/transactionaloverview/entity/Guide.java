@@ -14,8 +14,8 @@ public class Guide {
     private String name;
     private Integer salary;
 
-    @Version
-    private Integer version;
+//    @Version
+//    private Integer version;
 
     public Guide() {
     }
@@ -58,13 +58,13 @@ public class Guide {
         this.salary = salary;
     }
 
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
+//    public Integer getVersion() {
+//        return version;
+//    }
+//
+//    public void setVersion(Integer version) {
+//        this.version = version;
+//    }
 
     @Override
     public String toString() {
