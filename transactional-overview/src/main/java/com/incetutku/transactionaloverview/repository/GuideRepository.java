@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface GuideRepository extends JpaRepository<Guide, Long> {
 
-    @Lock(LockModeType.PESSIMISTIC_READ)
+    // @Lock(LockModeType.PESSIMISTIC_READ)
     @Query("SELECT g.name, g.salary FROM Guide as g")
     List<Object[]> getNameAndSalaryOfAll();
 
