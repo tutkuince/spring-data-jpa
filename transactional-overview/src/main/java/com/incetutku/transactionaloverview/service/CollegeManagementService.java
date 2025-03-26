@@ -3,6 +3,7 @@ package com.incetutku.transactionaloverview.service;
 import com.incetutku.transactionaloverview.entity.Guide;
 import com.incetutku.transactionaloverview.repository.GuideRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class CollegeManagementService {
         guideRepository.save(guide);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void prepareNameAndSalaryReportOfAllGuides() {
         List<Object[]> resultList = guideRepository.getNameAndSalaryOfAll();
         resultList.forEach(result -> {
