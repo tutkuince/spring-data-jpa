@@ -17,4 +17,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Integer deleteInBulkByLevel(Integer level);
     // Please make sure that the modifying query that you want to run to perform your bulk operation is being run within a transaction.
     // otherwise it will throw an exception.
+    // When you do that, you won't be getting any callback methods triggered for you.
 }
