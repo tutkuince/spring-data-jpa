@@ -46,7 +46,7 @@ A read-write transaction allows both reading and modifying database records. Thi
 - Ensures changes are persisted safely with rollback support.
 
 
-#### Transaction Propagation in Hibernate
+### Transaction Propagation in Hibernate
 In Hibernate (when used with Spring), transaction propagation defines how transactions behave when a method is called inside another transactional method. Spring provides several propagation types to control how transactions are managed.
 #### Types of Transaction Propagation in Hibernate
 1. REQUIRED (Default)
@@ -100,7 +100,7 @@ Creates a nested transaction within an existing one.
 - NESTED → When you need sub-transactions that can roll back independently.
 
 
-#### Optimistic and Pessimistic Locking in Hibernate
+### Optimistic and Pessimistic Locking in Hibernate
 In Hibernate, locking mechanisms help prevent data inconsistencies when multiple transactions access the same entity simultaneously. The two main types of locking are pessimistic locking and optimistic locking.
 
 #### 1. Optimistic Locking
@@ -143,7 +143,7 @@ Disadvantages:
 - ❌ Performance overhead (locks reduce concurrency).
 - ❌ Deadlocks possible if not used carefully.
 
-#### Isolation Level Rules
+### Isolation Level Rules
 In Hibernate, isolation levels define how transactions interact with each other, preventing issues like dirty reads, non-repeatable reads, and phantom reads. These isolation levels are based on database transaction isolation levels, and Hibernate uses them through JDBC.
 
 - Dirty Read: A transaction reads uncommitted changes of another transaction.
@@ -214,3 +214,33 @@ Isolation Level	Use Case
 🔹 Hibernate itself does not define isolation levels but relies on JDBC and database settings. <br/>
 🔹 Choosing the right isolation level is a balance between consistency and performance. <br/>
 🔹 READ COMMITTED is the most commonly used level, while SERIALIZABLE is the safest but slowest. <br/>
+
+### Modifying Queries
+Modifying queries in Hibernate refer to update, delete, and insert operations executed directly using HQL (Hibernate Query Language) or JPQL (Java Persistence Query Language) instead of modifying entities and persisting changes through the session.
+HQL/JPQL for modifying queries when you want bulk updates/deletes.
+Use @Modifying @Query in Spring Data JPA for clean repository methods.
+
+Why Use Modifying Queries?
+- Better Performance: Bypasses Hibernate's automatic dirty checking.
+- Bulk Operations: Efficiently update or delete multiple records in a single query.
+- Avoiding Entity Lifecycle Management: Directly modify data without loading entities into memory.
+
+#### Modifying Queries with JPQL (@Modifying in Spring Data JPA)
+In Spring Data JPA, you can use @Modifying with @Query for update and delete queries.
+
+##### UPDATE Query
+Used to update multiple records without loading them as objects.
+
+- @Modifying annotation enables update/delete queries.
+- Must be used inside a transaction (@Transactional).
+
+##### DELETE Query
+Used to remove multiple records directly.
+
+- Use Case: Removing all canceled orders.
+
+***Important Considerations***
+
+✅ Use Transactions: Modifying queries must run inside a transaction.  <br/>
+✅ Avoid Loading Large Datasets: Directly updating/deleting via queries prevents memory issues. <br/>
+✅ Session Synchronization: Manually clear the session (session.clear()) if needed. <br/>
