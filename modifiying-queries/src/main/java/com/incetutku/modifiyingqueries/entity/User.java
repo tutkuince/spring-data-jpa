@@ -81,6 +81,11 @@ public class User {
         isActive = active;
     }
 
+    @PostRemove
+    public void foo() {
+        System.out.println("User[id=" + this.id + "] just got deleted");
+    }
+
     @Override
     public String toString() {
         return "User{" +
