@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ModifiyingQueriesApplication {
+public class ModifyingQueriesApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ModifiyingQueriesApplication.class, args);
+        SpringApplication.run(ModifyingQueriesApplication.class, args);
     }
 
 }
