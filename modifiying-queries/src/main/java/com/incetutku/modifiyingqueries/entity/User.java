@@ -22,6 +22,9 @@ public class User {
     @Column(name = "active")
     private Boolean isActive;
 
+    @Version
+    private Integer version;
+
     public User() {
     }
 
@@ -79,6 +82,14 @@ public class User {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     @PostRemove
