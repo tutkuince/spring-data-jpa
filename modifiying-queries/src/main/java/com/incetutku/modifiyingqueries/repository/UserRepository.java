@@ -12,7 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Integer deleteByLevel(Integer level); // bulk operations run a bit faster.
 
     @Transactional  // by default, there is no transactional annotation with using modifying annotation
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true) // by using the clear automatically attribute in your modifying annotation,
+    // you could clear the underlying persistence context.
+    // flushAutomatically = true: if your persistence context needs a flushing just before executing your modifying query like the delete in bulk method
+    // userRepository.flush();
     @Query("DELETE FROM User as u WHERE u.level = :level")
     Integer deleteInBulkByLevel(Integer level);
     // Please make sure that the modifying query that you want to run to perform your bulk operation is being run within a transaction.
