@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional    // derived queries delete the data one by one. it is not a bulk operations.
@@ -25,4 +27,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // from JpaRepository
     // not called @PostRemove methods
     void deleteAllInBatch(Iterable<User> users);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE User as u SET u.level = u.level + 1 WHERE u.registrationDate < ?1 and u.isActive = true")
+    Integer updateInBulk(LocalDate registrationDate);
 }
