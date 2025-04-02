@@ -22,7 +22,7 @@ public class User {
     @Column(name = "active")
     private Boolean isActive;
 
-    @Version
+    @Version // is not updated because of bulk update
     private Integer version;
 
     public User() {
