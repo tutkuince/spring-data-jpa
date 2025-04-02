@@ -20,9 +20,11 @@ public class ModifyingClient implements ApplicationRunner {
         userService.persistUsers();
 
         // deleting users one-by-one by level
-        userService.deleteUsersByLevel();
+        // userService.deleteUsersByLevel();
 
         // deleting users in-bulk by level
-        userService.deleteUsersInBulkByLevel();
+        // userService.deleteUsersInBulkByLevel();
+
+        userService.updateUser();
     }
 }
