@@ -40,4 +40,10 @@ public class UserService {
         Integer countOfDeletedUsersInBulk = userRepository.deleteInBulkByLevel(2);
         System.out.println(countOfDeletedUsersInBulk);
     }
+
+    @Transactional
+    public void updateUser() {
+        int updatedUsers = userRepository.updateInBulk(LocalDate.of(2020, Month.JANUARY, 1));
+        System.out.println(updatedUsers);
+    }
 }
