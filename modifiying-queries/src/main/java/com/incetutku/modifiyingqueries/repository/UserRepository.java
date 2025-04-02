@@ -30,6 +30,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE User as u SET u.level = u.level + 1 WHERE u.registrationDate < ?1 and u.isActive = true")
+    @Query("UPDATE VERSIONED User as u SET u.level = u.level + 1 WHERE u.registrationDate < ?1 and u.isActive = true")
+    // we should use "VERSIONED" with @Version annotation
     Integer updateInBulk(LocalDate registrationDate);
 }
