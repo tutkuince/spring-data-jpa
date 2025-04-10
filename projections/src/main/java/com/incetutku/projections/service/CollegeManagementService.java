@@ -32,6 +32,7 @@ public class CollegeManagementService {
     public void displayNameAndSalaryOfFirst3GuidesBySalaryGreaterThan2000() {
         List<GuideNameSalary> proxies = guideRepository.findFirst3BySalaryGreaterThan(2000);
 
-        proxies.forEach(guide -> System.out.println("Name: " + guide.getName() + "\t\t Salary: " + guide.getSalary()));
+//        proxies.forEach(guide -> System.out.println("Name: " + guide.getName() + "\t\t Salary: " + guide.getSalary()));
+        proxies.forEach(proxy -> System.out.println(proxy.getInfo()));
     }
 }
