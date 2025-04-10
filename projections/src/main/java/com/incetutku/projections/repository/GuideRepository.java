@@ -14,5 +14,8 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
 
 //    @Query(value = "SELECT g.name, g.salary FROM Guide as g WHERE g.salary > :salary LIMIT 3", nativeQuery = true)
     // we can use it with @Value annotations to avoid load unnecessary data attributes
+    //List<GuideNameSalary> findFirst3BySalaryGreaterThan(Integer salary);
+
+    @Query(value = "SELECT g.staff_id as staffId, g.name, g.salary FROM Guide as g WHERE g.salary > :salary LIMIT 3", nativeQuery = true)
     List<GuideNameSalary> findFirst3BySalaryGreaterThan(Integer salary);
 }
