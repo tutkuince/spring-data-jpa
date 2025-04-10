@@ -57,6 +57,11 @@ public class Guide {
         this.salary = salary;
     }
 
+    @PostLoad
+    public void postLoad() {
+        System.out.println("Guide[id=" + this.id + "] just got loaded.");
+    }
+
     @Override
     public String toString() {
         return "Guide{" +
