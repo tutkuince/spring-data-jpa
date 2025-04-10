@@ -8,5 +8,5 @@ public interface GuideNameSalary {
     String getSalary();
 
     @Value("#{target.name} \t #{target.salary}")    // loading the data of all of its data attributes
-    String getInfo();
+    String getInfo();                               // you should use it with @Query annotation in repository to avoid load unnecessary data
 }
