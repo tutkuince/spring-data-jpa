@@ -244,3 +244,60 @@ Used to remove multiple records directly.
 ✅ Use Transactions: Modifying queries must run inside a transaction.  <br/>
 ✅ Avoid Loading Large Datasets: Directly updating/deleting via queries prevents memory issues. <br/>
 ✅ Session Synchronization: Manually clear the session (session.clear()) if needed. <br/>
+
+### Projection
+A Projection is a way to retrieve only specific fields from an entity instead of the entire object. This helps with:
+
+- Improving performance (fetch less data)
+- Reducing memory usage
+- Avoiding exposing sensitive fields (e.g., password)
+
+#### Types of Projections in Spring DATA JPA
+#### 1. Interface-based Projections (Most Common)
+
+You create an interfae with getters that match the fields you want.
+```
+public interface UserSummary {
+    String getName();
+    String getEmail();
+}
+```
+Then define your repository method:
+```
+List<UserSummary> findByStatus(String status);
+```
+This will return only the name and email fields of users with the given status.
+
+#### 2. Class-based Projections (DTO Projections)
+You define a DTO class with a constructor:
+
+```
+public class UserDTO {
+    private final String name;
+    private final String email;
+
+    public UserDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    // getters
+}
+```
+And use JPQL with new keyword:
+```
+@Query("SELECT new com.example.dto.UserDTO(u.name, u.email) FROM User u WHERE u.status = :status")
+List<UserDTO> findUsersByStatus(@Param("status") String status);
+```
+Note: The constructor must match the selected fields and their order.
+
+#### Benefits of Using Projections
+- Faster performance – fetch only what’s needed
+- Avoids overfetching
+- Cleaner APIs
+- Protects sensitive data (like passwords)
+
+#### Notes and Gotchas
+- In interface-based projections, method names must match entity field names
+- In DTO-based projections, use new keyword in JPQL with matching constructor
+- Projections are read-only — you can’t persist changes using them
