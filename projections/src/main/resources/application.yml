@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testDB
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    # turn of auto_commit mode
+    hikari:
+      auto-commit: false
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        # turn of auto_commit mode
+        connection:
+          provider_disables_autocommit: true
+
+
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+  main:
+    banner-mode: off
+
+logging:
+  level:
+    root: off
+    org.springframework: error
+    org.hibernate.sql: debug
+    #    org.hibernate.type.descriptor.sql.DdlType: TRACE
+    # turn on Hikari connection pool logging (logs every 30 seconds)
+#    com.zaxxer.hikari: TRACE
+    # Transaction Details (Spring)
+#    org.springframework.orm.jpa: DEBUG
+#    org.springframework.transaction: DEBUG
+
+  pattern:
+    console: "%msg%n"
