@@ -18,5 +18,7 @@ public class ManyToOneClient implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         // persisting
         collegeManagementService.persistingAStudentAlongWithItsAssociatedGuide();
+
+        collegeManagementService.findingAStudentByItsId();
     }
 }
