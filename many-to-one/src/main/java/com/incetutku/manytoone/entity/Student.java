@@ -13,8 +13,8 @@ public class Student {
 
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY) // By default, @ManyToOne associations are fetched EAGERly
-    @JoinColumn(name = "guide_id")                                      // You should always use the lazy fetching strategy.
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY) // By default, @ManyToOne associations are fetched EAGERly
+    @JoinColumn(name = "guide_id")                                                          // You should always use the lazy fetching strategy.
     private Guide guide;
 
     public Student() {

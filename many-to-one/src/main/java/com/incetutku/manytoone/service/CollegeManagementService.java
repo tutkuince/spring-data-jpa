@@ -28,6 +28,17 @@ public class CollegeManagementService {
     }
 
     @Transactional
+    public void persistingAStudentAlongWithItsAssociatedGuideFetchTypeMerge() {
+        Student student = studentRepository.findById(1L).orElseThrow(RuntimeException::new);
+        Guide guide = student.getGuide();
+
+        student.setName("John Jr. Smith");
+        guide.setSalary(2000);
+
+        studentRepository.save(student);
+    }
+
+    @Transactional
     public void findingAStudentByItsId() {
         Student student = studentRepository.findById(1L).orElseThrow(RuntimeException::new);
         System.out.println(student);
