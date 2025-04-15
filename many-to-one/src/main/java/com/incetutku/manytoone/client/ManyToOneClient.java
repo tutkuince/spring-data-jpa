@@ -23,5 +23,9 @@ public class ManyToOneClient implements ApplicationRunner {
         // collegeManagementService.findingAStudentByItsId();
 
         collegeManagementService.persistingAGuideAlonWithItsAssociatedStudents();
+
+        collegeManagementService.findingAGuideByItsId();
+
+        collegeManagementService.updatingAStudent();
     }
 }

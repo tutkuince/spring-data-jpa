@@ -16,7 +16,7 @@ public class Guide {
     private String staffId;
     private String name;
     private Integer salary;
-    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST}) // By default, @OneToMany associations are fetched LAZYly.
     private Set<Student> students = new HashSet<>();
 
     public Guide() {
@@ -66,6 +66,18 @@ public class Guide {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    // Helper method
+    public void addStudent(Student student) {
+        this.students.add(student);
+        student.setGuide(this);
+    }
+
+    // Helper method
+    public void removeStudent(Student student) {
+        this.students.remove(student);
+        student.setGuide(null);
     }
 
     @Override

@@ -33,6 +33,20 @@ public class CollegeManagementService {
         guideRepository.save(guide2);
     }
 
+    @Transactional(readOnly = true)
+    public void findingAGuideByItsId() {
+        Guide guide = guideRepository.findById(1L).orElseThrow(RuntimeException::new);
+        System.out.println(guide);
+    }
+
+    @Transactional(readOnly = true)
+    public void updatingAStudent() {
+        Guide guide = guideRepository.findById(2L).orElseThrow(RuntimeException::new);
+        Student student = studentRepository.findById(2L).orElseThrow(RuntimeException::new);
+
+        student.setGuide(guide);
+    }
+
     @Transactional
     public void persistingAStudentAlongWithItsAssociatedGuide() {
         Guide guide = new Guide("2000MO10789", "Mike Lawson", 1000);
