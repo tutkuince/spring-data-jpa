@@ -2,6 +2,9 @@ package com.incetutku.manytoone.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Guide {
 
@@ -13,6 +16,8 @@ public class Guide {
     private String staffId;
     private String name;
     private Integer salary;
+    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST})
+    private Set<Student> students = new HashSet<>();
 
     public Guide() {
     }
@@ -53,6 +58,14 @@ public class Guide {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 
     @Override

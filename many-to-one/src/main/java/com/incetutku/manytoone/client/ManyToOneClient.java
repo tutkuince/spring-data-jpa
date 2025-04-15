@@ -17,9 +17,11 @@ public class ManyToOneClient implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // persisting
-        collegeManagementService.persistingAStudentAlongWithItsAssociatedGuide();
-        collegeManagementService.persistingAStudentAlongWithItsAssociatedGuideFetchTypeMerge();
+//        collegeManagementService.persistingAStudentAlongWithItsAssociatedGuide();
+//        collegeManagementService.persistingAStudentAlongWithItsAssociatedGuideFetchTypeMerge();
 
         // collegeManagementService.findingAStudentByItsId();
+
+        collegeManagementService.persistingAGuideAlonWithItsAssociatedStudents();
     }
 }
