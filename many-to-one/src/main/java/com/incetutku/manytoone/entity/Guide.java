@@ -3,6 +3,7 @@ package com.incetutku.manytoone.entity;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -78,6 +79,16 @@ public class Guide {
     public void removeStudent(Student student) {
         this.students.remove(student);
         student.setGuide(null);
+    }
+
+    // Helper method
+    public void removeStudents() {
+        Iterator<Student> iterator = this.students.iterator();
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            student.setGuide(null);
+            iterator.remove();
+        }
     }
 
     @Override
