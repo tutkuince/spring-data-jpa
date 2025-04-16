@@ -17,8 +17,8 @@ public class Guide {
     private String staffId;
     private String name;
     private Integer salary;
-    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST}) // By default, @OneToMany associations are fetched LAZYly.
-    private Set<Student> students = new HashSet<>();
+    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST}, orphanRemoval = true)   // By default, @OneToMany associations are fetched LAZYly.
+    private Set<Student> students = new HashSet<>();                                        // delete associated all students from the db with orphanRemoval
 
     public Guide() {
     }
