@@ -301,3 +301,14 @@ Note: The constructor must match the selected fields and their order.
 - In interface-based projections, method names must match entity field names
 - In DTO-based projections, use new keyword in JPQL with matching constructor
 - Projections are read-only — you can’t persist changes using them
+
+### Entity Graph
+An Entity Graph in Spring Data JPA defines what related entities should be loaded along with the main entity.
+
+In short:
+- Without Entity Graph → associations (like @OneToMany, @ManyToOne) are usually LAZY loaded → meaning, they are loaded later when accessed.
+- With Entity Graph → you can tell Hibernate to EAGERLY fetch certain relationships immediately in the same query.
+
+✅ It helps you optimize queries     <br/>
+✅ It helps avoid N+1 problems       <br/>
+✅ It gives you fine-grained control over what is fetched. <br/>
