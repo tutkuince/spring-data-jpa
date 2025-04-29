@@ -7,12 +7,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Entity
-@NamedEntityGraph(
-        name = "Guide.students",
-        attributeNodes = {
-                @NamedAttributeNode("students")
-        }
-)
+//@NamedEntityGraph(
+//        name = "Guide.students",
+//        attributeNodes = {
+//                @NamedAttributeNode("students")
+//        }
+//)
 public class Guide {
 
     @Id
