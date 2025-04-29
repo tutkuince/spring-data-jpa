@@ -20,6 +20,11 @@ public class Student {
     public Student() {
     }
 
+    public Student(String enrollmentId, String name) {
+        this.enrollmentId = enrollmentId;
+        this.name = name;
+    }
+
     public Student(String enrollmentId, String name, Guide guide) {
         this.enrollmentId = enrollmentId;
         this.name = name;

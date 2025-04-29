@@ -28,14 +28,20 @@ public class CollegeManagementService {
     public void persistingAGuideAlonWithItsAssociatedStudents() {
         Guide guide1 = new Guide("2000MO10789", "Mike Lawson", 1000);
         Guide guide2 = new Guide("2000IM10901", "Ian Lamb", 2000);
+        Guide guide3 = new Guide("2000DO10777", "David Crow", 3000);
 
-        Student student1 = new Student("2014JT50123", "John Smith", guide1);
-        Student student2 = new Student("2014AL50456", "Amy Gill", guide2);
+        Student student1 = new Student("2014JT50123", "John Smith");
+        Student student2 = new Student("2014AL50456", "Amy Gill");
+        Student student3 = new Student("2014BE50789", "Bruce Lee");
+        Student student4 = new Student("2014RG50347", "Raul Garcia");
 
-        guide1.getStudents().add(student1);
-        guide1.getStudents().add(student2);
+        guide2.addStudent(student1);
+        guide2.addStudent(student2);
+        guide3.addStudent(student4);
 
         guideRepository.save(guide1);
         guideRepository.save(guide2);
+        guideRepository.save(guide3);
+        studentRepository.save(student3);
     }
 }
