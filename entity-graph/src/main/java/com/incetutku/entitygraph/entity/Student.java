@@ -17,6 +17,10 @@ public class Student {
     @JoinColumn(name = "guide_id")                                                          // You should always use the lazy fetching strategy.
     private Guide guide;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hostel_id")
+    private Hostel hostel;
+
     public Student() {
     }
 
@@ -61,6 +65,14 @@ public class Student {
 
     public void setGuide(Guide guide) {
         this.guide = guide;
+    }
+
+    public Hostel getHostel() {
+        return hostel;
+    }
+
+    public void setHostel(Hostel hostel) {
+        this.hostel = hostel;
     }
 
     @Override
