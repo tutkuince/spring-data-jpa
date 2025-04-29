@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface GuideRepository extends JpaRepository<Guide, Long> {
 //    @EntityGraph(value = "Guide.students", type = EntityGraph.EntityGraphType.LOAD)
-    @EntityGraph(attributePaths = {"students"}, type = EntityGraph.EntityGraphType.LOAD)
+//    @EntityGraph(attributePaths = {"students"}, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = {"students.hostel"}, type = EntityGraph.EntityGraphType.LOAD) // entity sub-graph
     Optional<Guide> findById(Long id);
 }
