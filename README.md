@@ -312,3 +312,28 @@ In short:
 ✅ It helps you optimize queries     <br/>
 ✅ It helps avoid N+1 problems       <br/>
 ✅ It gives you fine-grained control over what is fetched. <br/>
+
+### Entity Subgraph
+An Entity Subgraph is a way to define nested fetching when using an @EntityGraph.
+
+- EntityGraph: lets you define which fields of the main entity should be eagerly loaded.
+- EntitySubgraph: lets you define which fields of the associated entities should also be eagerly loaded.
+
+In simple terms:
+- ***EntityGraph = top-level fields***
+- ***EntitySubgraph = deeper-level fields (nested)***
+
+```
+@Entity
+@NamedEntityGraph(
+    name = "User.orders.address",
+    attributeNodes = @NamedAttributeNode(value = "orders", subgraph = "orderWithAddress"),
+    subgraphs = @NamedSubgraph(
+        name = "orderWithAddress",
+        attributeNodes = @NamedAttributeNode("shippingAddress")
+    )
+)
+public class User {
+    // ...
+}
+```
