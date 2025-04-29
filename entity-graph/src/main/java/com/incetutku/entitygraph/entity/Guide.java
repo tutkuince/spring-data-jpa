@@ -7,6 +7,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Entity
+@NamedEntityGraph(
+        name = "Guide.students",
+        attributeNodes = {
+                @NamedAttributeNode("students")
+        }
+)
 public class Guide {
 
     @Id
@@ -17,8 +23,8 @@ public class Guide {
     private String staffId;
     private String name;
     private Integer salary;
-    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST}, orphanRemoval = true)   // By default, @OneToMany associations are fetched LAZYly.
-    private Set<Student> students = new HashSet<>();                                        // delete associated all students from the db with orphanRemoval
+    @OneToMany(mappedBy = "guide", cascade = {CascadeType.PERSIST})
+    private Set<Student> students = new HashSet<>();
 
     public Guide() {
     }
