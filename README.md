@@ -313,6 +313,30 @@ In short:
 ✅ It helps avoid N+1 problems       <br/>
 ✅ It gives you fine-grained control over what is fetched. <br/>
 
+#### EntityGraphType.FETCH (Default)
+It overrides the default fetch type of the entity associations.
+
+- Any association listed in attributePaths will be fetched eagerly, even if it is defined as LAZY in the entity.
+- Not listed attributes keep their default fetch type.
+
+***Use Case:*** When you want to force JPA to eagerly load specific relationships for this particular query.
+
+```
+@EntityGraph(attributePaths = {"orders"}, type = EntityGraphType.FETCH)
+Optional<User> findById(Long id);
+
+```
+Even if orders is marked as LAZY, it will be fetched eagerly in this method.
+
+#### EntityGraphType.LOAD
+It respects the existing fetch type configuration in the entity.
+
+- Attributes listed in attributePaths are fetched eagerly only if their fetch type allows it.
+- It does not override the entity’s fetch type (like LAZY).
+- More like a hint to the JPA provider.
+
+***Use Case:*** When you want to assist the JPA provider in deciding what to load, but not override fetch strategies defined in the entity mappings.
+
 ### Entity Subgraph
 An Entity Subgraph is a way to define nested fetching when using an @EntityGraph.
 
