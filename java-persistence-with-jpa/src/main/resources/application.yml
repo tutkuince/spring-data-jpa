@@ -1,0 +1,5 @@
+jdbc:
+  url: jdbc:postgresql://localhost:5432/postgres
+  username: sa
+  password: s3cr3t
+  driver: org.postgresql.Driver
