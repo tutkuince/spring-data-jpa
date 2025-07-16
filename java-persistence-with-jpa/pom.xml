@@ -11,15 +11,34 @@
   <url>http://maven.apache.org</url>
 
   <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
+    <hibernate-core-jakarta.version>5.6.15.Final</hibernate-core-jakarta.version>
+    <postgresql.version>42.7.5</postgresql.version>
   </properties>
 
   <dependencies>
+    <!-- JPA -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>${jakarta.persistence-api.version}</version>
+    </dependency>
+
+    <!-- JPA Implementation -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core-jakarta</artifactId>
+      <version>${hibernate-core-jakarta.version}</version>
+    </dependency>
+
+    <!-- Postgresql -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.7.5</version>
     </dependency>
   </dependencies>
 </project>
